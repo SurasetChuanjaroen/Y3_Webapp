@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Config</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="page1.html">Config</a>
+        <a href="page2.html">Log Form</a>
+        <a href="page3.html">View Logs</a>
+    </nav>
+    <div class="container">
+        <h1>Drone Configuration</h1>
+        <div class="config-item"><span>Drone ID:</span> <span id="droneId">Loading...</span></div>
+        <div class="config-item"><span>Drone Name:</span> <span id="droneName">Loading...</span></div>
+        <div class="config-item"><span>Light:</span> <span id="light">Loading...</span></div>
+        <div class="config-item"><span>Country:</span> <span id="country">Loading...</span></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const response = await fetch('http://localhost:3000/configs/3001');
+                const config = await response.json();
+
+                document.getElementById("droneId").textContent = config.drone_id || "Unknown";
+                document.getElementById("droneName").textContent = config.drone_name || "Unknown";
+                document.getElementById("light").textContent = config.light || "Unknown";
+                document.getElementById("country").textContent = config.country || "Unknown";
+            } catch (error) {
+                console.error("Error fetching drone config:", error);
+            }
+        });
+    </script>
+</body>
+</html>
